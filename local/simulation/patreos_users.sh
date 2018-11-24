@@ -25,6 +25,19 @@ JSON=$(jq -n --arg from "${PATREOS_USERS[3]}" --arg to "${PATREOS_USERS[4]}" '{ 
 cleos push action patreosblurb blurb "${JSON}" -p ${PATREOS_USERS[3]}
 
 # TRANSFER ACTIONS
+
+echo "${PATREOS_USERS[0]} depositing $PATREOS_TOKEN into patreosvault..."
+JSON=$(jq -n \
+--arg from "${PATREOS_USERS[0]}" \
+--arg quantity "100.0000 $PATREOS_TOKEN" '{ from: $from, to: "patreosvault", quantity: $quantity, memo: "PATR deposit in patreosvault" }')
+cleos push action patreostoken transfer "${JSON}" -p ${PATREOS_USERS[0]}
+
+echo "${PATREOS_USERS[0]} depositing $EOS_TOKEN into patreosvault..."
+JSON=$(jq -n \
+--arg from "${PATREOS_USERS[0]}" \
+--arg quantity "10.0000 $EOS_TOKEN" '{ from: $from, to: "patreosvault", quantity: $quantity, memo: "EOS deposit in patreosvault" }')
+cleos push action eosio.token transfer "${JSON}" -p ${PATREOS_USERS[0]}
+
 echo "${PATREOS_USERS[4]} depositing $EOS_TOKEN into patreosvault..."
 JSON=$(jq -n \
 --arg from "${PATREOS_USERS[4]}" \
