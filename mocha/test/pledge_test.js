@@ -5,7 +5,7 @@ var accounts = fs.readFileSync("accounts.json");
 var TransactionBuilder = require('../utils/transaction_builder');
 
 process.on('unhandledRejection', (reason, promise) => {
-  console.log('Unhandled Rejection at:', reason.stack || reason)
+  //console.log('Unhandled Rejection at:', reason.stack || reason)
   // Recommended: send the information to sentry.io
   // or whatever crash reporting service you use
 })
@@ -53,37 +53,97 @@ patreosBalance.then((response) => {
   console.log('An error occurred: ' + JSON.stringify(error)); //eslint-disable-line
 });
 
-const table = eos.getTableRows(true, 'patreosnexus', 'patreosnexus', 'profiles', 'xokayplanetx');
-table.then((response) => {
+const vaultBalance = eos.getCurrencyBalance('patreosvault', 'xokayplanetx');
+vaultBalance.then((response) => {
   console.log(response);
 }).catch(error => {
   console.log('An error occurred: ' + JSON.stringify(error)); //eslint-disable-line
 });
-
-const network = config.requiredFields.accounts[0];
 */
 
 const transaction_builder = new TransactionBuilder(config);
+var results = {
+  test1: '',
+  test2: '',
+  test3: '',
+  test4: ''
+};
+
 
 describe('Patreos Tests', function() {
 
-  var results = {
-    test1: 'assertion failure with message: Must pledge at least min quanity'
-  };
+  before(() => {
 
-  beforeEach(() => {
-    const transaction = transaction_builder.pledge('xokayplanetx', 'patreosnexus', '1.0000', 10);
-    const promise = eos.transaction(transaction);
-    return promise.then((response) => {
+    var transactions = [
+      transaction_builder.pledge('xokayplanetx', 'patreosnexus', '1.0000', 10),
+      transaction_builder.pledge('xokayplanetx', 'patreosnexus', '51.0000', 10),
+      transaction_builder.pledge('xokayplanetx', 'patreosnexus', '55.0000', 10),
+      transaction_builder.unpledge('xokayplanetx', 'patreosnexus')
+    ];
+
+    async function createPledgeBelowMinPledgeAmount(resolve, tx) {
+      let ret = await eos.transaction(tx).then((response) => {
+        console.log(response)
         results.test1 = 'Transaction was successful'
-    }).catch(err => {
-        error = JSON.parse(err).error
-        results.test1 = error.details[0].message
+      }).catch(err => {
+        error = JSON.parse(err).error;
+        results.test1 = error.details[0].message;
+      });
+    }
+
+    async function createSuccessfulPledge(resolve, tx) {
+      let ret = await eos.transaction(tx).then((response) => {
+        results.test2 = response.processed.receipt.status;
+      }).catch(err => {
+        console.log(err)
+        results.test2 = 'Transaction was not successful';
+      });
+    }
+
+    async function createDuplicatePledge(resolve, tx) {
+      let ret = await eos.transaction(tx).then((response) => {
+        console.log(response)
+        results.test3 = 'Transaction was successful';
+      }).catch(err => {
+        error = JSON.parse(err).error;
+        results.test3 = error.details[0].message;
+      });
+    }
+
+    async function removePledge(resolve, tx) {
+      let ret = await eos.transaction(tx).then((response) => {
+        results.test4 = response.processed.receipt.status;
+        resolve()
+      }).catch(err => {
+        console.log(err)
+        results.test4 = 'Transaction was not successful';
+        resolve()
+      });
+    }
+
+    return new Promise( (resolve, reject) => {
+      createPledgeBelowMinPledgeAmount(resolve, transactions[0])
+      createSuccessfulPledge(resolve, transactions[1])
+      createDuplicatePledge(resolve, transactions[2])
+      removePledge(resolve, transactions[3])
     });
+
   });
 
   it('Should error when pledge of min value is not met', function() {
     assert.equal('assertion failure with message: Must pledge at least min quanity', results.test1);
+  });
+
+  it('Should execute successfully', function() {
+    assert.equal('executed', results.test2);
+  });
+
+  it('Should error on duplicate pledge', function() {
+    assert.equal('assertion failure with message: Pledge already exists.', results.test3);
+  });
+
+  it('Removed pledge successfully', function() {
+    assert.equal('executed', results.test4);
   });
 
 });

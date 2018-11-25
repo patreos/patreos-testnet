@@ -29,7 +29,7 @@ cleos push action patreosblurb blurb "${JSON}" -p ${PATREOS_USERS[3]}
 echo "${PATREOS_USERS[0]} depositing $PATREOS_TOKEN into patreosvault..."
 JSON=$(jq -n \
 --arg from "${PATREOS_USERS[0]}" \
---arg quantity "100.0000 $PATREOS_TOKEN" '{ from: $from, to: "patreosvault", quantity: $quantity, memo: "PATR deposit in patreosvault" }')
+--arg quantity "120.0000 $PATREOS_TOKEN" '{ from: $from, to: "patreosvault", quantity: $quantity, memo: "PATR deposit in patreosvault" }')
 cleos push action patreostoken transfer "${JSON}" -p ${PATREOS_USERS[0]}
 
 echo "${PATREOS_USERS[0]} depositing $EOS_TOKEN into patreosvault..."
