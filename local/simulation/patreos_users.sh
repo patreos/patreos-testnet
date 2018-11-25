@@ -85,7 +85,7 @@ cleos push action patreosnexus unpledge "${JSON}" -p ${PATREOS_USERS[4]}
 # WITHDRAW
 JSON=$(jq -n --arg owner "${PATREOS_USERS[2]}" --arg quantity "1.0000 $EOS_TOKEN" '{ owner: $owner, quantity: $quantity }')
 echo "${PATREOS_USERS[2]} withdrawing 1.0000 $EOS_TOKEN with: $JSON"
-echo "THIS SHOULD FAIL! ${PATREOS_USERS[2]} NEVER MADE DEPOSIT"
+echo -ne "\033[00;31m THIS SHOULD FAIL! ${PATREOS_USERS[2]} NEVER MADE DEPOSIT \033[0m"
 cleos push action patreosvault withdraw "${JSON}" -p ${PATREOS_USERS[2]}
 sleep 2
 

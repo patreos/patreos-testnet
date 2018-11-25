@@ -145,6 +145,7 @@ describe('Patreos Tests', function() {
       });
     }
 
+    // We return a promise so that before() waits until resolve
     return new Promise( (resolve, reject) => {
       createPledgeBelowMinPledgeAmount(resolve, transactions[0])
       createSuccessfulPledge(resolve, transactions[1])
@@ -155,6 +156,9 @@ describe('Patreos Tests', function() {
     });
 
   });
+
+
+  // Promise has resolved here
 
   it('Should error when pledge of min value is not met', function() {
     assert.equal('assertion failure with message: Must pledge at least min quanity', results.test1);

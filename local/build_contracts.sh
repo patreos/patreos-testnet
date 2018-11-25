@@ -2,7 +2,7 @@
 source ~/dev/patreos/patreos-tests/local/constants.sh
 
 echo "Compiling Patreos Contracts"
-pushd ~/dev/patreos/patreos-contracts/cdt/
+pushd ~/dev/patreos/patreos-contracts/
 for contract in "${PATREOS_CONTRACTS[@]}"
 do
   echo "Compiling $contract"

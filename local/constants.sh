@@ -1,5 +1,5 @@
 #!/bin/bash
-JSON=$(jq -n \
+USER_KEYS_JSON=$(jq -n \
 '{
   system: [
     {
@@ -90,8 +90,6 @@ JSON=$(jq -n \
 }'
 )
 
-echo "$JSON"
-
 EOSIO_CONTRACTS_DIR=~/dev/eos/eos/build/contracts
 PATREOS_CONTRACTS_DIR=~/dev/patreos/patreos-contracts
 
@@ -101,45 +99,45 @@ PATREOS_TOKEN=PATR
 
 UNSECURE_WALLET_PWD=PW5JUuzAq3pU7u9GGZsTBsT5Tu34Nh9Qmfx4hrxe8Dqk62nhsZyEL
 
-SYSTEM_PUBLIC_KEY=$(echo "$JSON" | jq '.system[0].public_key' | tr -d \")
-SYSTEM_PRIVATE_KEY=$(echo "$JSON" | jq '.system[0].private_key' | tr -d \")
+SYSTEM_PUBLIC_KEY=$(echo "$USER_KEYS_JSON" | jq '.system[0].public_key' | tr -d \")
+SYSTEM_PRIVATE_KEY=$(echo "$USER_KEYS_JSON" | jq '.system[0].private_key' | tr -d \")
 
-PATREOS_PUBLIC_KEY=$(echo "$JSON" | jq '.contracts[0].public_key' | tr -d \")
-PATREOS_PRIVATE_KEY=$(echo "$JSON" | jq '.contracts[0].private_key' | tr -d \")
+PATREOS_PUBLIC_KEY=$(echo "$USER_KEYS_JSON" | jq '.contracts[0].public_key' | tr -d \")
+PATREOS_PRIVATE_KEY=$(echo "$USER_KEYS_JSON" | jq '.contracts[0].private_key' | tr -d \")
 
 PRIVATE_KEYS=(
-  $(echo "$JSON" | jq '.users[0].private_key' | tr -d \")
-  $(echo "$JSON" | jq '.users[1].private_key' | tr -d \")
-  $(echo "$JSON" | jq '.users[2].private_key' | tr -d \")
-  $(echo "$JSON" | jq '.users[3].private_key' | tr -d \")
-  $(echo "$JSON" | jq '.users[4].private_key' | tr -d \")
-  $(echo "$JSON" | jq '.users[5].private_key' | tr -d \")
-  $(echo "$JSON" | jq '.users[6].private_key' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[0].private_key' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[1].private_key' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[2].private_key' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[3].private_key' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[4].private_key' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[5].private_key' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[6].private_key' | tr -d \")
 )
 
 PUBLIC_KEYS=(
-  $(echo "$JSON" | jq '.users[0].public_key' | tr -d \")
-  $(echo "$JSON" | jq '.users[1].public_key' | tr -d \")
-  $(echo "$JSON" | jq '.users[2].public_key' | tr -d \")
-  $(echo "$JSON" | jq '.users[3].public_key' | tr -d \")
-  $(echo "$JSON" | jq '.users[4].public_key' | tr -d \")
-  $(echo "$JSON" | jq '.users[5].public_key' | tr -d \")
-  $(echo "$JSON" | jq '.users[6].public_key' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[0].public_key' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[1].public_key' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[2].public_key' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[3].public_key' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[4].public_key' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[5].public_key' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[6].public_key' | tr -d \")
 )
 
 PATREOS_USERS=(
-  $(echo "$JSON" | jq '.users[0].name' | tr -d \")
-  $(echo "$JSON" | jq '.contracts[4].name' | tr -d \")
-  $(echo "$JSON" | jq '.users[1].name' | tr -d \")
-  $(echo "$JSON" | jq '.users[2].name' | tr -d \")
-  $(echo "$JSON" | jq '.users[3].name' | tr -d \")
-  $(echo "$JSON" | jq '.users[4].name' | tr -d \")
-  $(echo "$JSON" | jq '.users[5].name' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[0].name' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.contracts[4].name' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[1].name' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[2].name' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[3].name' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[4].name' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[5].name' | tr -d \")
 )
 
 PATREOS_CONTRACTS=(
-  $(echo "$JSON" | jq '.contracts[0].name' | tr -d \")
-  $(echo "$JSON" | jq '.contracts[1].name' | tr -d \")
-  $(echo "$JSON" | jq '.contracts[2].name' | tr -d \")
-  $(echo "$JSON" | jq '.contracts[3].name' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.contracts[0].name' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.contracts[1].name' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.contracts[2].name' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.contracts[3].name' | tr -d \")
 )
