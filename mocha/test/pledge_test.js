@@ -66,7 +66,9 @@ var results = {
   test1: '',
   test2: '',
   test3: '',
-  test4: ''
+  test4: '',
+  test5: '',
+  test6: ''
 };
 
 
@@ -78,7 +80,9 @@ describe('Patreos Tests', function() {
       transaction_builder.pledge('xokayplanetx', 'patreosnexus', '1.0000', 10),
       transaction_builder.pledge('xokayplanetx', 'patreosnexus', '51.0000', 10),
       transaction_builder.pledge('xokayplanetx', 'patreosnexus', '55.0000', 10),
-      transaction_builder.unpledge('xokayplanetx', 'patreosnexus')
+      transaction_builder.unpledge('xokayplanetx', 'patreosnexus'),
+      transaction_builder.pledge('xokayplanetx', 'patreosnexus', '65.0000', 10),
+      transaction_builder.pledge('xokayplanetx', 'patreosnexus', '200.0000', 10)
     ];
 
     async function createPledgeBelowMinPledgeAmount(resolve, tx) {
@@ -113,10 +117,30 @@ describe('Patreos Tests', function() {
     async function removePledge(resolve, tx) {
       let ret = await eos.transaction(tx).then((response) => {
         results.test4 = response.processed.receipt.status;
-        resolve()
       }).catch(err => {
         console.log(err)
         results.test4 = 'Transaction was not successful';
+      });
+    }
+
+    async function shouldHave2xThePledgeInVault(resolve, tx) {
+      let ret = await eos.transaction(tx).then((response) => {
+        console.log(response)
+        results.test5 = 'Transaction was successful';
+      }).catch(err => {
+        error = JSON.parse(err).error;
+        results.test5 = error.details[0].message;
+      });
+    }
+
+    async function shouldHaveSufficientFundsForPledge(resolve, tx) {
+      let ret = await eos.transaction(tx).then((response) => {
+        console.log(response)
+        results.test6 = 'Transaction was successful';
+        resolve()
+      }).catch(err => {
+        error = JSON.parse(err).error;
+        results.test6 = error.details[0].message;
         resolve()
       });
     }
@@ -126,6 +150,8 @@ describe('Patreos Tests', function() {
       createSuccessfulPledge(resolve, transactions[1])
       createDuplicatePledge(resolve, transactions[2])
       removePledge(resolve, transactions[3])
+      shouldHave2xThePledgeInVault(resolve, transactions[4])
+      shouldHaveSufficientFundsForPledge(resolve, transactions[5])
     });
 
   });
@@ -144,6 +170,14 @@ describe('Patreos Tests', function() {
 
   it('Removed pledge successfully', function() {
     assert.equal('executed', results.test4);
+  });
+
+  it('Should have 2x the pledge amount in patreosvault', function() {
+    assert.equal('assertion failure with message: Expected a balance of 2x the pledge', results.test5);
+  });
+
+  it('Should have sufficient funds for pledge', function() {
+    assert.equal('assertion failure with message: Insufficent funds for pledge amount', results.test6);
   });
 
 });
