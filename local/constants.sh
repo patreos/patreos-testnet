@@ -85,6 +85,11 @@ USER_KEYS_JSON=$(jq -n \
       name: "testplanet14",
       private_key: "5KgggZQ3vrF7T8kaXgQ3ePvvCLG31iUm2wEAn7r258LiZVCiQjq",
       public_key: "EOS4wAP4BFUAMLtt3WkXeVssY8jPQrr2tfAfpNuuDU92F4yDCxLed"
+    },
+    {
+      name: "nomoneyuser1",
+      private_key: "5JXT8YAsNvtipDH6oFon75EdFLHZ1x8VmwgBz2kz3be7Jr3kW4S",
+      public_key: "EOS5zND1SyAhuCWE1zTsdVdZvewME9vojtYXZ4ygKHsX6mv2TksSb"
     }
   ]
 }'
@@ -113,6 +118,7 @@ PRIVATE_KEYS=(
   $(echo "$USER_KEYS_JSON" | jq '.users[4].private_key' | tr -d \")
   $(echo "$USER_KEYS_JSON" | jq '.users[5].private_key' | tr -d \")
   $(echo "$USER_KEYS_JSON" | jq '.users[6].private_key' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[10].private_key' | tr -d \")
 )
 
 PUBLIC_KEYS=(
@@ -123,6 +129,7 @@ PUBLIC_KEYS=(
   $(echo "$USER_KEYS_JSON" | jq '.users[4].public_key' | tr -d \")
   $(echo "$USER_KEYS_JSON" | jq '.users[5].public_key' | tr -d \")
   $(echo "$USER_KEYS_JSON" | jq '.users[6].public_key' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[10].public_key' | tr -d \")
 )
 
 PATREOS_USERS=(
@@ -133,6 +140,7 @@ PATREOS_USERS=(
   $(echo "$USER_KEYS_JSON" | jq '.users[3].name' | tr -d \")
   $(echo "$USER_KEYS_JSON" | jq '.users[4].name' | tr -d \")
   $(echo "$USER_KEYS_JSON" | jq '.users[5].name' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.users[10].name' | tr -d \")
 )
 
 PATREOS_CONTRACTS=(
