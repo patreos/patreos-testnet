@@ -33,6 +33,11 @@ USER_KEYS_JSON=$(jq -n \
       name: "patreosmoney",
       private_key: "5JoEQenCL5WEaWyxZCRbgGvxuyKnWYUcBKmtD1oc3HnYfBttHPB",
       public_key: "EOS7YZQ7PbeFY8KPA9XAe3K7dkME3JKwWadMcggRPeVHRQ2DZDeoZ"
+    },
+    {
+      name: "patreospayer",
+      private_key: "5JoEQenCL5WEaWyxZCRbgGvxuyKnWYUcBKmtD1oc3HnYfBttHPB",
+      public_key: "EOS7YZQ7PbeFY8KPA9XAe3K7dkME3JKwWadMcggRPeVHRQ2DZDeoZ"
     }
   ],
   users: [
@@ -104,34 +109,6 @@ PATREOS_TOKEN=PATR
 
 UNSECURE_WALLET_PWD=PW5JUuzAq3pU7u9GGZsTBsT5Tu34Nh9Qmfx4hrxe8Dqk62nhsZyEL
 
-SYSTEM_PUBLIC_KEY=$(echo "$USER_KEYS_JSON" | jq '.system[0].public_key' | tr -d \")
-SYSTEM_PRIVATE_KEY=$(echo "$USER_KEYS_JSON" | jq '.system[0].private_key' | tr -d \")
-
-PATREOS_PUBLIC_KEY=$(echo "$USER_KEYS_JSON" | jq '.contracts[0].public_key' | tr -d \")
-PATREOS_PRIVATE_KEY=$(echo "$USER_KEYS_JSON" | jq '.contracts[0].private_key' | tr -d \")
-
-PRIVATE_KEYS=(
-  $(echo "$USER_KEYS_JSON" | jq '.users[0].private_key' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.users[1].private_key' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.users[2].private_key' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.users[3].private_key' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.users[4].private_key' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.users[5].private_key' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.users[6].private_key' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.users[10].private_key' | tr -d \")
-)
-
-PUBLIC_KEYS=(
-  $(echo "$USER_KEYS_JSON" | jq '.users[0].public_key' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.users[1].public_key' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.users[2].public_key' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.users[3].public_key' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.users[4].public_key' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.users[5].public_key' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.users[6].public_key' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.users[10].public_key' | tr -d \")
-)
-
 PATREOS_USERS=(
   $(echo "$USER_KEYS_JSON" | jq '.users[0].name' | tr -d \")
   $(echo "$USER_KEYS_JSON" | jq '.contracts[4].name' | tr -d \")
@@ -141,11 +118,4 @@ PATREOS_USERS=(
   $(echo "$USER_KEYS_JSON" | jq '.users[4].name' | tr -d \")
   $(echo "$USER_KEYS_JSON" | jq '.users[5].name' | tr -d \")
   $(echo "$USER_KEYS_JSON" | jq '.users[10].name' | tr -d \")
-)
-
-PATREOS_CONTRACTS=(
-  $(echo "$USER_KEYS_JSON" | jq '.contracts[0].name' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.contracts[1].name' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.contracts[2].name' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.contracts[3].name' | tr -d \")
 )

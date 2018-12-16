@@ -5,6 +5,8 @@ echo "$USER_KEYS_JSON"
 
 ./build_contracts.sh
 
+./bootstrap_eos.sh
+
 ./bootstrap_patreos.sh
 
 ./simulation/setup.sh
