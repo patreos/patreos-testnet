@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Needed Vars
-source ~/dev/patreos/patreos-tests/local/constants.sh
+source ~/dev/patreos/patreos-testnet/local/constants.sh
 
 echo "Making Patreos Contract Accounts..."
 users=$(echo "$USER_KEYS_JSON" | jq '.contracts')
@@ -61,6 +61,9 @@ done
 
 echo "Setting patreosvault permission to eosio.code"
 cleos set account permission patreosvault active '{"threshold": 1,"keys": [{"key": "EOS7YZQ7PbeFY8KPA9XAe3K7dkME3JKwWadMcggRPeVHRQ2DZDeoZ","weight": 1}],"accounts": [{"permission":{"actor":"patreosvault","permission":"eosio.code"},"weight":1}]}' owner -p patreosvault
+
+echo "Setting recurringpay permission to eosio.code"
+cleos set account permission recurringpay active '{"threshold": 1,"keys": [{"key": "EOS7YZQ7PbeFY8KPA9XAe3K7dkME3JKwWadMcggRPeVHRQ2DZDeoZ","weight": 1}],"accounts": [{"permission":{"actor":"recurringpay","permission":"eosio.code"},"weight":1}]}' owner -p recurringpay
 
 sleep 2
 

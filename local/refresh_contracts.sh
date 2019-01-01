@@ -1,5 +1,5 @@
 #!/bin/bash
-source ~/dev/patreos/patreos-tests/local/constants.sh
+source ~/dev/patreos/patreos-testnet/local/constants.sh
 
 echo "Unlocking Unsecure Wallet..."
 cleos wallet lock -n unsecure

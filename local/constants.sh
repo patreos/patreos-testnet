@@ -35,7 +35,7 @@ USER_KEYS_JSON=$(jq -n \
       public_key: "EOS7YZQ7PbeFY8KPA9XAe3K7dkME3JKwWadMcggRPeVHRQ2DZDeoZ"
     },
     {
-      name: "patreospayer",
+      name: "recurringpay",
       private_key: "5JoEQenCL5WEaWyxZCRbgGvxuyKnWYUcBKmtD1oc3HnYfBttHPB",
       public_key: "EOS7YZQ7PbeFY8KPA9XAe3K7dkME3JKwWadMcggRPeVHRQ2DZDeoZ"
     }
