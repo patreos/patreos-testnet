@@ -59,9 +59,6 @@ for row in $(echo "${users}" | jq -r '.[] | @base64'); do
 done
 
 
-echo "Setting patreosvault permission to eosio.code"
-cleos set account permission patreosvault active '{"threshold": 1,"keys": [{"key": "EOS7YZQ7PbeFY8KPA9XAe3K7dkME3JKwWadMcggRPeVHRQ2DZDeoZ","weight": 1}],"accounts": [{"permission":{"actor":"patreosvault","permission":"eosio.code"},"weight":1}]}' owner -p patreosvault
-
 echo "Setting recurringpay permission to eosio.code"
 cleos set account permission recurringpay active '{"threshold": 1,"keys": [{"key": "EOS7YZQ7PbeFY8KPA9XAe3K7dkME3JKwWadMcggRPeVHRQ2DZDeoZ","weight": 1}],"accounts": [{"permission":{"actor":"recurringpay","permission":"eosio.code"},"weight":1}]}' owner -p recurringpay
 

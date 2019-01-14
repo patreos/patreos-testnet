@@ -26,11 +26,5 @@ done
 echo "------------------"
 echo "Finished"
 
-echo "patreosvault balance for ${PATREOS_USERS[3]}"
-cleos get currency balance patreosvault ${PATREOS_USERS[3]}
-
-echo "patreosvault balance for ${PATREOS_USERS[4]}"
-cleos get currency balance patreosvault ${PATREOS_USERS[4]}
-
 echo "User profiles for Patreos"
 cleos get table patreosnexus patreosnexus profiles

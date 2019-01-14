@@ -20,16 +20,6 @@ USER_KEYS_JSON=$(jq -n \
       public_key: "EOS7YZQ7PbeFY8KPA9XAe3K7dkME3JKwWadMcggRPeVHRQ2DZDeoZ"
     },
     {
-      name: "patreosblurb",
-      private_key: "5JoEQenCL5WEaWyxZCRbgGvxuyKnWYUcBKmtD1oc3HnYfBttHPB",
-      public_key: "EOS7YZQ7PbeFY8KPA9XAe3K7dkME3JKwWadMcggRPeVHRQ2DZDeoZ"
-    },
-    {
-      name: "patreosvault",
-      private_key: "5JoEQenCL5WEaWyxZCRbgGvxuyKnWYUcBKmtD1oc3HnYfBttHPB",
-      public_key: "EOS7YZQ7PbeFY8KPA9XAe3K7dkME3JKwWadMcggRPeVHRQ2DZDeoZ"
-    },
-    {
       name: "patreosmoney",
       private_key: "5JoEQenCL5WEaWyxZCRbgGvxuyKnWYUcBKmtD1oc3HnYfBttHPB",
       public_key: "EOS7YZQ7PbeFY8KPA9XAe3K7dkME3JKwWadMcggRPeVHRQ2DZDeoZ"
@@ -111,7 +101,7 @@ UNSECURE_WALLET_PWD=PW5JUuzAq3pU7u9GGZsTBsT5Tu34Nh9Qmfx4hrxe8Dqk62nhsZyEL
 
 PATREOS_USERS=(
   $(echo "$USER_KEYS_JSON" | jq '.users[0].name' | tr -d \")
-  $(echo "$USER_KEYS_JSON" | jq '.contracts[4].name' | tr -d \")
+  $(echo "$USER_KEYS_JSON" | jq '.contracts[2].name' | tr -d \")
   $(echo "$USER_KEYS_JSON" | jq '.users[1].name' | tr -d \")
   $(echo "$USER_KEYS_JSON" | jq '.users[2].name' | tr -d \")
   $(echo "$USER_KEYS_JSON" | jq '.users[3].name' | tr -d \")
