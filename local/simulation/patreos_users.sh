@@ -14,7 +14,10 @@ do
   --arg owner "${account}" \
   --arg _owner "${account}" \
   --arg _name "${account} (John)" \
-  --arg _description "I am a new Patreos user!" '{ owner: $owner, _profile: { owner: $_owner, name: $_name, description: $_description } }')
+  --arg _image_url "" \
+  --arg _banner_url "" \
+  --arg _last_publication "1547393974" \
+  --arg _description "I am a new Patreos user!" '{ owner: $owner, _profile: { owner: $_owner, name: $_name, description: $_description, image_url: $_image_url, banner_url: $_banner_url, last_publication: $_last_publication } }')
   echo "Setting profile with $JSON"
   cleos push action patreosnexus setprofile "${JSON}" -p ${account}
 done
