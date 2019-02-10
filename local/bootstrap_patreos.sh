@@ -64,22 +64,20 @@ cleos set account permission recurringpay active '{"threshold": 1,"keys": [{"key
 
 sleep 2
 
-echo "Creating Patreos Token with Issuer: ${PATREOS_USERS[0]}"
-JSON=$(jq -n --arg issuer "${PATREOS_USERS[0]}" --arg maximum_supply "2000000000.0000 $PATREOS_TOKEN" '{ issuer: $issuer, maximum_supply: $maximum_supply, can_freeze: 0, can_recall: 0, can_whitelist: 0 }')
+echo "Creating Patreos Token with Issuer: patreosnexus"
+JSON=$(jq -n --arg issuer "patreosnexus" --arg maximum_supply "2000000000.0000 $PATREOS_TOKEN" '{ issuer: $issuer, maximum_supply: $maximum_supply, can_freeze: 0, can_recall: 0, can_whitelist: 0 }')
 cleos push action patreostoken create "${JSON}" -p patreostoken
 
 sleep 2
 
 echo "Issuing first Patreos Tokens to ${PATREOS_USERS[0]}"
 ISSUING=(
-  "$(jq -n --arg to "${PATREOS_USERS[0]}" --arg quantity "680000000.0000 $PATREOS_TOKEN" --arg memo "34% ELSEWHERE" '{ to: $to, quantity: $quantity, memo: $memo }')"
-  "$(jq -n --arg to "${PATREOS_USERS[1]}" --arg quantity "120000000.0000 $PATREOS_TOKEN" --arg memo "6% INFLATION" '{ to: $to, quantity: $quantity, memo: $memo }')"
-  "$(jq -n --arg to "${PATREOS_USERS[2]}" --arg quantity "1200000000.0000 $PATREOS_TOKEN" --arg memo "60% AIRDROP" '{ to: $to, quantity: $quantity, memo: $memo }')"
+  "$(jq -n --arg to "${PATREOS_USERS[0]}" --arg quantity "10000.0000 $PATREOS_TOKEN" --arg memo "Test <3" '{ to: $to, quantity: $quantity, memo: $memo }')"
 )
 for issue in "${ISSUING[@]}"
 do
   echo "Issuing Patreos Tokens: ${issue}"
-  cleos push action patreostoken issue "${issue}" -p ${PATREOS_USERS[0]}
+  cleos push action patreostoken issue "${issue}" -p patreosnexus
 done
 
 echo ""
